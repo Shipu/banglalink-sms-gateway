@@ -1,12 +1,12 @@
 {
     "name": "shipu/banglalink-sms-gateway",
-    "description": "",
+    "description": "Banglalink sms gateway",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
-            "name": "shipu",
-            "email": "shipu@yourdomain.com"
+            "name": "Shipu Ahamed",
+            "email": "shipuahamed01@gmail.com"
         }
     ],
     "autoload": {
@@ -14,7 +14,10 @@
                 "Shipu\\BanglalinkSmsGateway\\": "src/"
             }
         },
-    "require": {},
+    "require": {
+        "nahid/apiz": "^1.1",
+        "shipu/laratie": "^1.1"
+    },
     "minimum-stability": "dev",
     "extra": {
         "laravel": {
