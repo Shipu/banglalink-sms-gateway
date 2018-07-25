@@ -2,7 +2,6 @@
 
 namespace Shipu\BanglalinkSmsGateway\Services;
 
-
 use Apiz\AbstractApi;
 
 class Banglalink extends AbstractApi
@@ -13,13 +12,22 @@ class Banglalink extends AbstractApi
 
     protected $config;
 
-    protected $debug = true;
+    protected $debug = false;
 
     protected $template = true;
 
+    protected $sender = null;
+
+    protected $autoParse = false;
+
+    protected $responseDetails = false;
+
     protected $numberPrefix = '88';
 
-    protected $prefix = 'sendSMS/sendSMS';
+    protected $prefix = 'sendSMS';
+
+    protected $sendingUrl = '/sendSMS';
+
 
     protected $sendingParameters = [];
 
@@ -141,12 +149,12 @@ class Banglalink extends AbstractApi
         if ( is_array($this->sms) ) {
             foreach ( $this->sms as $key => $message ) {
                 if ( is_array($message) && isset($message[ 'message' ]) && isset($message[ 'to' ]) ) {
-                    $sms[]     = rawurlencode($message[ 'message' ]);
+                    $sms[]     = $message[ 'message' ];
                     $mobiles[] = $message[ 'to' ];
                 } elseif ( $key === 'to' ) {
                     $mobiles[] = $message;
                 } else {
-                    $sms[] = rawurlencode($message);
+                    $sms[] = $message;
                 }
             }
         }
@@ -171,7 +179,7 @@ class Banglalink extends AbstractApi
             return $this->makeSingleSmsToUser();
         } catch ( \ErrorException $exception ) {
             if ( $this->template ) {
-                $template          = rawurldecode($this->sms);
+                $template          = $this->sms;
                 $putDataInTemplate = $sms = $mobiles = [];
 
                 if ( is_array($this->mobiles) ) {
@@ -226,10 +234,11 @@ class Banglalink extends AbstractApi
     private function gettingParameters( $sms, $mobiles )
     {
         $this->sendingParameters = [
-            'user'     => $this->config[ 'user' ],
-            'password' => $this->config[ 'password' ],
-            'message'  => $sms,
-            'msisdn'   => $mobiles,
+            'userID'  => $this->config[ 'user_id' ],
+            'passwd'  => $this->config[ 'password' ],
+            'sender'  => $this->sender,
+            'message' => $sms,
+            'msisdn'  => $mobiles,
         ];
 
         return $this;
@@ -244,11 +253,19 @@ class Banglalink extends AbstractApi
     {
         if ( $this->debug ) {
             return $this->sendingParameters;
+        } elseif ( $this->autoParse && !$this->responseDetails ) {
+            return $this->query($this->sendingParameters)->get($this->sendingUrl)->autoParse();
+        } elseif ( $this->responseDetails ) {
+            $response = $this->query($this->sendingParameters)->get($this->sendingUrl)->autoParse();
+            preg_match_all('!\d+!', $response, $result);
+
+            return [
+                'success' => $result[ 0 ][ 0 ],
+                'failed'  => $result[ 0 ][ 1 ]
+            ];
         }
 
-        return $this->query($this->sendingParameters)
-            //            ->headers([ 'Accept' => 'application/xml' ])
-            ->get($this->prefix);
+        return $this->query($this->sendingParameters)->get($this->sendingUrl);
     }
 
     /**
@@ -274,15 +291,55 @@ class Banglalink extends AbstractApi
     }
 
     /**
+     * Set Sender Details
+     *
+     * @param $sender
+     * @return $this
+     */
+    public function sender( $sender )
+    {
+        $this->sender = $sender;
+
+        return $this;
+    }
+
+    /**
      * Set Debug
      *
      * @param bool $debug
      *
      * @return $this
      */
-    public function debug( $debug = false )
+    public function debug( $debug = true )
     {
         $this->debug = $debug;
+
+        return $this;
+    }
+
+    /**
+     * Set Auto Parse
+     *
+     * @param bool $autoParse
+     *
+     * @return $this
+     */
+    public function autoParse( $autoParse = true )
+    {
+        $this->autoParse = $autoParse;
+
+        return $this;
+    }
+
+    /**
+     * Set Response Details
+     *
+     * @param bool $responseDetails
+     * @return $this
+     */
+    public function details( $responseDetails = true )
+    {
+        $this->responseDetails = $responseDetails;
 
         return $this;
     }
@@ -295,6 +352,36 @@ class Banglalink extends AbstractApi
     protected function setBaseUrl()
     {
         return 'https://vas.banglalinkgsm.com';
+    }
+
+    /**
+     * Set sending url
+     *
+     * @return string
+     */
+    public function setSendingUrl( $sendingUrl )
+    {
+        $this->sendingUrl = $sendingUrl;
+
+        return $this;
+    }
+
+    public function getSendingUrl()
+    {
+        return $this->sendingUrl;
+    }
+
+    /**
+     * Set Template
+     *
+     * @param bool $template
+     * @return $this
+     */
+    public function template( $template = true )
+    {
+        $this->template = $template;
+
+        return $this;
     }
 
 }

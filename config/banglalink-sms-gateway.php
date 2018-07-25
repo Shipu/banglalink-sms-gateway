@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'user' => '',
+    'user_id'  => '',
     'password' => ''
 ];

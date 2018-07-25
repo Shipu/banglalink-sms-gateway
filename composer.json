@@ -25,7 +25,7 @@
                 "Shipu\\BanglalinkSmsGateway\\BanglalinkSmsGatewayServiceProvider"
             ],
             "aliases": {
-
+                "Banglalink": "Shipu\\BanglalinkSmsGateway\\Facades\\Banglalink"
             }
         }
     }
