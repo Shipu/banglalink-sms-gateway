@@ -12,9 +12,9 @@ Go to terminal and run this command
 composer require shipu/banglalink-sms-gateway
 ```
 
-Wait for few minutes. Composer will automatically install this package for your project.
+Wait for few minutes. Composer will automatically install the package for your project.
 
-### For Laravel
+#### For Laravel
 
 Below **Laravel 5.5** open `config/app` and add this line in `providers` section
 
@@ -22,7 +22,7 @@ Below **Laravel 5.5** open `config/app` and add this line in `providers` section
 Shipu\BanglalinkSmsGateway\BanglalinkServiceProvider::class,
 ```
 
-For Facade support you have add this line in `aliases` section.
+For Facade support you have to add this line in the `aliases` section.
 
 ```php
 'Banglalink'   =>  Shipu\BanglalinkSmsGateway\Facades\Banglalink::class,
@@ -34,12 +34,12 @@ Then run this command
 php artisan vendor:publish --provider="Shipu\BanglalinkSmsGateway\BanglalinkServiceProvider"
 ```
 
-## For PHP
+## For PHP Configuration
 
 This package is required two configurations.
 
-1. user_id = your user_id which provide by Banglalink.
-2. password = your password which provide by Banglalink.
+1. user_id = your user_id which is provided by Banglalink.
+2. password = your password which is also provided by Banglalink.
 
 banglalink-sms-gateway is take an array as config file. Lets services
 
@@ -53,7 +53,7 @@ $config = [
 
 $sms = new Banglalink($config);
 ```
-### For Laravel
+### For Laravel Configuration
 
 This package is also support Laravel. For laravel you have to configure it as laravel style.
 
@@ -67,7 +67,7 @@ return [
 ```
 
 ## Usages
-Its very easy to use. This packages has a lot of functionality and features.
+Its very easy to use. This packages has a lot of functionalities and features.
 
 ### Send SMS to a single user
 
@@ -177,7 +177,7 @@ $sms = Banglalink::message('your text here one !!!', '01616022669')->send([
 ```
 
 ### Send SMS with SMS template
-Suppose you have to send SMS to multiple users but you want to mentions their name dynamically with message. So what can you do? Ha ha this package already handle this situations. Lets see
+Suppose you have to send SMS to multiple users but you want to mention their name dynamically with message. So what can you do? Ha ha this package has already handled this situation. Lets see
 ```php
 $users = [
     ['01670420420', ['Nahid', '1234']],
@@ -202,7 +202,7 @@ $sms = new \Shipu\BanglalinkSmsGateway\Services\Banglalink(config('banglalink-sm
 $msg = $sms->message("Hello %s , Your promo code is: %s", $users)->send();
 ```
 
-Here this messege will sent as every users with his name and promo code like:
+Here this message will be sent to every users with his/her name and promo code like:
 
 - `8801670420420` - Hello Nahid , Your promo code is: 1234
 - `8801970420420` - Hello Rana , Your promo code is: 3213
