@@ -47,7 +47,7 @@ banglalink-sms-gateway is take an array as config file. Lets services
 use Shipu\BanglalinkSmsGateway\Banglalink;
 
 $config = [
-    'user_id' => 'Your Username',
+    'user_id' => 'Your User Id',
     'password' => 'Your Password'
 ];
 
