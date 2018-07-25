@@ -39,7 +39,7 @@ php artisan vendor:publish --provider="Shipu\BanglalinkSmsGateway\BanglalinkServ
 This package is required two configurations.
 
 1. user_id = your user_id which is provided by Banglalink.
-2. password = your password which is also provide by Banglalink.
+2. password = your password which is also provided by Banglalink.
 
 banglalink-sms-gateway is take an array as config file. Lets services
 
