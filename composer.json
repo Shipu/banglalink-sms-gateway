@@ -15,8 +15,7 @@
             }
         },
     "require": {
-        "nahid/apiz": "^1.1",
-        "shipu/laratie": "^1.1"
+        "nahid/apiz": "^1.1"
     },
     "minimum-stability": "dev",
     "extra": {
