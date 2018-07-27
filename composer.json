@@ -22,7 +22,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Shipu\\BanglalinkSmsGateway\\BanglalinkSmsGatewayServiceProvider"
+                "Shipu\\BanglalinkSmsGateway\\Providers\\BanglalinkSmsGatewayServiceProvider"
             ],
             "aliases": {
                 "Banglalink": "Shipu\\BanglalinkSmsGateway\\Facades\\Banglalink"
