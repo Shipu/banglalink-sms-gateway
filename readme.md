@@ -31,7 +31,7 @@ For Facade support you have to add this line in the `aliases` section.
 Then run this command
 
 ```shell
-php artisan vendor:publish --provider="Shipu\BanglalinkSmsGateway\Providers\BanglalinkServiceProvider"
+php artisan vendor:publish --provider="Shipu\BanglalinkSmsGateway\Providers\BanglalinkSmsGatewayServiceProvider"
 ```
 
 ## For PHP Configuration
