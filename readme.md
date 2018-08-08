@@ -19,7 +19,7 @@ Wait for few minutes. Composer will automatically install the package for your p
 Below **Laravel 5.5** open `config/app` and add this line in `providers` section
 
 ```php
-Shipu\BanglalinkSmsGateway\Providers\BanglalinkServiceProvider::class,
+Shipu\BanglalinkSmsGateway\Providers\BanglalinkSmsGatewayServiceProvider::class,
 ```
 
 For Facade support you have to add this line in the `aliases` section.
